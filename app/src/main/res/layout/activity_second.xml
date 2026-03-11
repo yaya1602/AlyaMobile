@@ -53,7 +53,7 @@
         android:layout_height="65dp"
         android:layout_marginTop="112dp"
         android:elevation="15dp"
-        android:text="START GAME"
+        android:text="START GAME!!! "
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold"
