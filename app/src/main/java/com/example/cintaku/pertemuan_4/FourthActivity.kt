@@ -1,17 +1,14 @@
 package com.example.cintaku.pertemuan_4
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.cintaku.MainActivity
 import com.example.cintaku.R
 import com.example.cintaku.databinding.ActivityFourthBinding
-import com.example.cintaku.databinding.ActivityMainBinding
-import com.example.cintaku.databinding.ActivityThirdBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,6 +24,13 @@ class FourthActivity : AppCompatActivity() {
         binding = ActivityFourthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // ✅ TOOLBAR
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.apply {
+            title = "Fourth Activity"
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -39,13 +43,7 @@ class FourthActivity : AppCompatActivity() {
         val age = intent.getIntExtra("age",0)
         Log.e("Data Intent","Nama: $name , Usia: $age, Asal: $from")
 
-        binding.btnKembali.setOnClickListener {
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-
-        }
+        // ❌ btnKembali DIHAPUS
 
         binding.btnShowSnackbar.setOnClickListener {
             Snackbar.make(binding.root, "Ini adalah Snackbar", Snackbar.LENGTH_INDEFINITE)
@@ -71,13 +69,24 @@ class FourthActivity : AppCompatActivity() {
         }
     }
 
+    // ✅ BACK TOOLBAR
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onStart() {
         super.onStart()
-        Log.e("onStart", "onStart: {FourthActivity} terlihat di layar")
+        Log.e("onStart", "FourthActivity terlihat di layar")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.e("onDestroy", "{FourthActivity} dihapus dari stack")
+        Log.e("onDestroy", "FourthActivity dihapus dari stack")
     }
 }
